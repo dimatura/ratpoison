@@ -1005,9 +1005,14 @@ find_frame_up (rp_frame *frame)
 {
   rp_screen *s;
   rp_frame *cur;
+  rp_screen *frame_s;
+
+  frame_s = frames_screen(frame);
 
   list_for_each_entry (s, &rp_screens, node)
     {
+      if (s != frame_s)
+        continue;
       list_for_each_entry (cur, &s->frames, node)
         {
           if (frame_top_abs (frame) == frame_bottom_abs (cur))
@@ -1024,9 +1029,14 @@ find_frame_down (rp_frame *frame)
 {
   rp_screen *s;
   rp_frame *cur;
+  rp_screen *frame_s;
+
+  frame_s = frames_screen(frame);
 
   list_for_each_entry (s, &rp_screens, node)
     {
+      if (s != frame_s)
+        continue;
       list_for_each_entry (cur, &s->frames, node)
         {
           if (frame_bottom_abs (frame) == frame_top_abs (cur))
@@ -1043,9 +1053,14 @@ find_frame_left (rp_frame *frame)
 {
   rp_screen *s;
   rp_frame *cur;
+  rp_screen *frame_s;
+
+  frame_s = frames_screen(frame);
 
   list_for_each_entry (s, &rp_screens, node)
     {
+      if (s != frame_s)
+        continue;
       list_for_each_entry (cur, &s->frames, node)
         {
           if (frame_left_abs (frame) == frame_right_abs (cur))
@@ -1062,9 +1077,14 @@ find_frame_right (rp_frame *frame)
 {
   rp_screen *s;
   rp_frame *cur;
+  rp_screen *frame_s;
+
+  frame_s = frames_screen(frame);
 
   list_for_each_entry (s, &rp_screens, node)
     {
+      if (s != frame_s)
+        continue;
       list_for_each_entry (cur, &s->frames, node)
         {
           if (frame_right_abs (frame) == frame_left_abs (cur))
