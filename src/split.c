@@ -1000,6 +1000,28 @@ show_frame_message (char *msg)
   sbuf_free (msgbuf);
 }
 
+static int
+frames_overlap_horizontal (rp_frame *f1, rp_frame *f2)
+{
+  int f1_right = frame_right_abs (f1);
+  int f2_right = frame_right_abs (f2);
+  int f1_left = frame_left_abs (f1);
+  int f2_left = frame_left_abs (f2);
+
+  return f1_left < f2_right && f2_left < f1_right;
+}
+
+static int
+frames_overlap_vertical (rp_frame *f1, rp_frame *f2)
+{
+  int f1_bottom = frame_bottom_abs (f1);
+  int f2_bottom = frame_bottom_abs (f2);
+  int f1_top = frame_top_abs (f1);
+  int f2_top = frame_top_abs (f2);
+
+  return f1_top < f2_bottom && f2_top < f1_bottom;
+}
+
 rp_frame *
 find_frame_up (rp_frame *frame)
 {
@@ -1011,7 +1033,7 @@ find_frame_up (rp_frame *frame)
       list_for_each_entry (cur, &s->frames, node)
         {
           if (frame_top_abs (frame) == frame_bottom_abs (cur))
-            if (frame_right_abs (frame) >= frame_left_abs (cur) && frame_left_abs (frame) <= frame_right_abs (cur))
+            if (frames_overlap_horizontal (frame, cur))
               return cur;
         }
     }
@@ -1030,7 +1052,7 @@ find_frame_down (rp_frame *frame)
       list_for_each_entry (cur, &s->frames, node)
         {
           if (frame_bottom_abs (frame) == frame_top_abs (cur))
-            if (frame_right_abs (frame) >= frame_left_abs (cur) && frame_left_abs (frame) <= frame_right_abs (cur))
+            if (frames_overlap_horizontal (frame, cur))
               return cur;
         }
     }
@@ -1049,7 +1071,7 @@ find_frame_left (rp_frame *frame)
       list_for_each_entry (cur, &s->frames, node)
         {
           if (frame_left_abs (frame) == frame_right_abs (cur))
-            if (frame_bottom_abs (frame) >= frame_top_abs (cur) && frame_top_abs (frame) <= frame_bottom_abs (cur))
+            if (frames_overlap_vertical (frame, cur))
               return cur;
         }
     }
@@ -1068,7 +1090,7 @@ find_frame_right (rp_frame *frame)
       list_for_each_entry (cur, &s->frames, node)
         {
           if (frame_right_abs (frame) == frame_left_abs (cur))
-            if (frame_bottom_abs (frame) >= frame_top_abs (cur) && frame_top_abs (frame) <= frame_bottom_abs (cur))
+            if (frames_overlap_vertical (frame, cur))
               return cur;
         }
     }
