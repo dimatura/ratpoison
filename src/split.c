@@ -1027,9 +1027,6 @@ find_frame_up (rp_frame *frame)
 {
   rp_screen *s;
   rp_frame *cur;
-  rp_screen *frame_s;
-
-  frame_s = frames_screen(frame);
 
   list_for_each_entry (s, &rp_screens, node)
     {
@@ -1049,9 +1046,6 @@ find_frame_down (rp_frame *frame)
 {
   rp_screen *s;
   rp_frame *cur;
-  rp_screen *frame_s;
-
-  frame_s = frames_screen(frame);
 
   list_for_each_entry (s, &rp_screens, node)
     {
@@ -1071,9 +1065,6 @@ find_frame_left (rp_frame *frame)
 {
   rp_screen *s;
   rp_frame *cur;
-  rp_screen *frame_s;
-
-  frame_s = frames_screen(frame);
 
   list_for_each_entry (s, &rp_screens, node)
     {
@@ -1093,9 +1084,6 @@ find_frame_right (rp_frame *frame)
 {
   rp_screen *s;
   rp_frame *cur;
-  rp_screen *frame_s;
-
-  frame_s = frames_screen(frame);
 
   list_for_each_entry (s, &rp_screens, node)
     {
