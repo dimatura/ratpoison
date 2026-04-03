@@ -1,58 +1,221 @@
-# This is a sample .ratpoisonrc file
-# Copyright (C) 2003, 2004 Shawn Betts
-#
-# Copying and distribution of this file, with or without modification,
-# are permitted in any medium without royalty provided the copyright
+#< hack - we need to set once per head
+nextscreen
 
-# Set the prefix key to that of screen's default
-escape C-a
+set barborder 0
+set bargravity c
+set barpadding 8 8
+set bgcolor #080808
+set border 0
+set bwcolor #0c0c0c
+set fgcolor #d75f00
+set framefmt %t
+set framesels 1234567890
+set fwcolor #303030
+set gravity c
+set historycompaction 1
+set historyexpansion 1
+set historysize 1000
+set infofmt (%H, %W) %n(%c - %a)
+set inputwidth 0
+set maxsizegravity c
+set maxundos 20
+set padding 0 0 0 0
+set resizeunit 80
+set startup_message on
+set transgravity center
+set waitcursor 1
+set warp 1
+set winfmt %n%s%t
+set wingravity c
+set winliststyle row
+set winname title
+set font "Intel One Mono:size=12"
 
-# Gets rid of that ugly crosshairs default cursor
-# and set the background to black
-exec xsetroot -solid black -cursor_name left_ptr
+nextscreen
 
-# Emulate screen by starting with a new xterm
-exec xterm
+set barborder 0
+set bargravity c
+set barpadding 8 8
+set bgcolor #080808
+set border 0
+set bwcolor #0c0c0c
+set fgcolor #d75f00
+set framefmt %t
+set framesels 1234567890
+set fwcolor #303030
+set gravity c
+set historycompaction 1
+set historyexpansion 1
+set historysize 1000
+set infofmt (%H, %W) %n(%c - %a)
+set inputwidth 0
+set maxsizegravity c
+set maxundos 20
+set padding 0 0 0 0
+set resizeunit 80
+set startup_message on
+set transgravity center
+set waitcursor 1
+set warp 1
+set winfmt %n%s%t
+set wingravity c
+set winliststyle row
+set winname title
+set font "Intel One Mono:size=12"
+#>
 
-# Bind e to our favorite editor
-bind e exec emacs
+escape Super_L
 
-# bind s to interactively run a surfraw query on freshmeat
-bind s colon exec xterm -e freshmeat
+addhook switchgroup swap 1
+addhook switchgroup banishrel
 
-# bind b (`b' for browse) to interactively ask for an URL to open
-bind b colon exec mozilla http://www.
+definekey top Print exec xfce4-screenshooter
+definekey top VoidSymbol ratclick 2
 
-# Use the name of the program rather than the title in the window list
-defwinname name
+alias i meta S-Insert
 
-# bind M-! to store the current frame layout in slot #1
-bind M-exclam exec ratpoison -c "setenv fs1 `ratpoison -c 'fdump'`"
+bind z undo
+bind x swap
+bind w exec helium
+bind VoidSymbol nextscreen
+bind v clipse-gui
+bind Up focusup
+bind u exec /usr/bin/rpws dump /home/linaro/Desktop/01-document/dotfiles/rpws_layouts.dmp
+bind Tab focus
+bind t exec pcmanfm-qt --daemon-mode
+bind space exec xboomx
+bind semicolon exec
+bind s-z redo
+bind s-x fselect
+bind s-w select
+bind s-VoidSymbol other
+bind s-v insert_X_selection
+bind s-Up exchangeup
+bind s-u exec /usr/bin/rpws restore /home/linaro/Desktop/01-document/dotfiles/rpws_layouts.dmp
+bind s-Tab focuslast
+bind s-t exec sudo pcmanfm-qt
+bind s-space exec python3 /home/linaro/.local/bin/dratmenu.py
+bind s-semicolon colon
+bind s-s hsplit
+bind s-Right exchangeright
+bind s-Return exec sudo x-terminal-emulator
+bind s-r remove
+bind s-Page_Up exec rpws movenext
+bind s-Page_Down exec rpws moveprev
+bind s-o iother
+bind s-minus exec /home/linaro/.local/bin/split1.sh
+bind s-Left exchangeleft
+bind s-KP_Subtract exec /home/linaro/.local/bin/split1.sh
+bind s-KP_Separator rathold down 3
+bind s-KP_Add exec /home/linaro/.local/bin/split2.sh
+bind s-KP_9 exec rpws move9
+bind s-KP_8 exec rpws move8
+bind s-KP_7 exec rpws move7
+bind s-KP_6 exec rpws move6
+bind s-KP_5 exec rpws move5
+bind s-KP_4 exec rpws move4
+bind s-KP_3 exec rpws move3
+bind s-KP_2 exec rpws move2
+bind s-KP_1 exec rpws move1
+bind s-KP_0 rathold down 1
+bind s-ISO_Left_Tab exec rpws movenext
+bind s-i exec nm-connection-editor
+bind s-Home exec /home/linaro/.local/bin/llm_scrot.sh
+bind s-g exec galculator
+bind s-Escape kill
+bind s-equal exec /home/linaro/.local/bin/split2.sh
+bind s-e exec xnc
+bind s-Down exchangedown
+bind s-BackSpace prev
+bind s-apostrophe colon exec x-terminal-emulator -e sudo 
+bind s-a title
+bind s-9 swap 9
+bind s-8 swap 8
+bind s-7 swap 7
+bind s-6 swap 6
+bind s-5 swap 5
+bind s-4 swap 4
+bind s-3 swap 3
+bind s-2 swap 2
+bind s-1 swap 1
+bind s-0 swap 0
+bind Right focusright
+bind Return exec x-terminal-emulator
+bind r resize
+bind q delete
+bind Page_Up exec rpws next
+bind Page_Down exec rpws prev
+bind p dedicate
+bind o cother
+bind minus vsplit
+bind M-VoidSymbol ratclick 3
+bind M-F7 exec x-terminal-emulator -e /home/linaro/.local/bin/llm_sF12_extract_last.sh
+bind M-F6 exec x-terminal-emulator -e /home/linaro/.local/bin/llm_sF9_attachment.sh
+bind M-F5 exec x-terminal-emulator -e /home/linaro/.local/bin/llm_analyze_file.sh
+bind M-F4 exec x-terminal-emulator -e /home/linaro/.local/bin/llm_sF8_fragment.sh
+bind M-F3 exec x-terminal-emulator -e /home/linaro/.local/bin/llm_pipe_selected_sys.sh
+bind M-F2 exec x-terminal-emulator -e /home/linaro/.local/bin/llm_sF6_system_prompt.sh
+bind M-F1 exec x-terminal-emulator -e /home/linaro/.local/bin/llm_sF4_prompt.sh
+bind M-4 exec xdotool key --repeat 3 apostrophe
+bind M-3 exec xdotool key --repeat 3 quotedbl
+bind M-2 exec xdotool key --repeat 6 dead_tilde
+bind M-1 exec xdotool key --repeat 6 dead_grave
+bind Left focusleft
+bind KP_Subtract vsplit
+bind KP_Separator rathold up 3
+bind KP_Enter exec gmrun
+bind KP_Add hsplit
+bind KP_9 exec rpws 9
+bind KP_8 exec rpws 8
+bind KP_7 exec rpws 7
+bind KP_6 exec rpws 6
+bind KP_5 exec rpws 5
+bind KP_4 exec rpws 4
+bind KP_3 exec rpws 3
+bind KP_2 exec rpws 2
+bind KP_1 exec rpws 1
+bind KP_0 rathold up 1
+bind k gother
+bind ISO_Left_Tab exec rpws next
+bind h exec x-terminal-emulator -e bpytop
+bind g exec gsimplecal
+bind f only
+bind Escape abort
+bind equal hsplit
+bind e exec xnedit
+bind Down focusdown
+bind C-VoidSymbol ratclick 1
+bind C-Tab exec rpws prev
+bind C-s-Tab exec rpws moveprev
+bind C-s-9 exec rpws move9
+bind C-s-8 exec rpws move8
+bind C-s-7 exec rpws move7
+bind C-s-6 exec rpws move6
+bind C-s-5 exec rpws move5
+bind C-s-4 exec rpws move4
+bind C-s-3 exec rpws move3
+bind C-s-2 exec rpws move2
+bind C-s-1 exec rpws move1
+bind C-9 exec rpws 9
+bind C-8 exec rpws 8
+bind C-7 exec rpws 7
+bind C-6 exec rpws 6
+bind C-5 exec rpws 5
+bind C-4 exec rpws 4
+bind C-3 exec rpws 3
+bind C-2 exec rpws 2
+bind C-1 exec rpws 1
+bind c redisplay
+bind BackSpace next
+bind b exec vorta
+bind apostrophe colon exec x-terminal-emulator -e 
 
-#bind M-1 to restore the frame layout in slot #1
-bind M-1 exec ratpoison -c "frestore `ratpoison -c 'getenv fs1'`"
-
-# Do the same for slot #2 and bind it to M-@ and M-2, respectively.
-bind M-at exec ratpoison -c "setenv fs2 `ratpoison -c 'fdump'`"
-bind M-2 exec ratpoison -c "frestore `ratpoison -c 'getenv fs2'`"
-
-# Give ourselves another slot on M-# and M-3, respectively.
-bind M-numbersign exec ratpoison -c "setenv fs3 `ratpoison -c 'fdump'`"
-bind M-3 exec ratpoison -c "frestore `ratpoison -c 'getenv fs3'`"
-
-# Here's a hack from John Meacham:
-
-bind a exec ratpoison -d :0.0 -c "echo `date +'%r - %A %n    %D - %B'`  `cal | tail -n +2 | sed -e 's/^Su/\n\n Su/' -e 's/.*/ & /' -e \"s/\ $(date +%e)\ /\<$(date +%e)\>/\"`"
-
-# it produces output like the following in the message window, very handy:
-#         +-----------------------+
-#         |05:05:24 PM - Tuesday  |
-#         |   09/09/03 - September|
-#         |                       |
-#         |Su Mo Tu We Th Fr Sa   |
-#         |    1  2  3  4  5  6   |
-#         | 7  8< 9>10 11 12 13   |
-#         |14 15 16 17 18 19 20   |
-#         |21 22 23 24 25 26 27   |
-#         |28 29 30               |
-#         +-----------------------+
+exec alttab
+exec sudo brightnessctl s 255
+exec nm-applet
+exec rpws init 9
+exec sh -c 'nohup /home/linaro/.local/bin/clipse -listen >/dev/null 2>&1 &'
+exec sh -c 'nohup sudo openvpn --config /etc/openvpn/mullvad_us_lax.conf >/dev/null 2>&1 &'
+exec /usr/bin/numlockx
+exec xfce4-power-manager
+exec xrdb -merge /home/linaro/.Xresources

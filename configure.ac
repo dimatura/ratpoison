@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-AC_INIT([ratpoison], [1.4.10-beta], [ratpoison-devel@nongnu.org])
+AC_INIT([ratpoison],[1.4.10-beta],[ratpoison-devel@nongnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([src/main.c])
@@ -25,7 +25,7 @@ AM_INIT_AUTOMAKE([-Wall -Werror gnu])
 
 AM_MAINTAINER_MODE([enable])
 
-AC_CONFIG_HEADER(src/config.h)
+AC_CONFIG_HEADERS([src/config.h])
 
 dnl by default turn off debugging
 AC_MSG_CHECKING([whether to enable debugging])
@@ -201,7 +201,15 @@ AS_IF([test "$with_electric_fence" = yes],
     [AC_MSG_ERROR([Couldn't find the Electric Fence library (-lefence)])])])
 
 dnl Checks for header files.
-AC_HEADER_STDC
+m4_warn([obsolete],
+[The preprocessor macro `STDC_HEADERS' is obsolete.
+  Except in unusual embedded environments, you can safely include all
+  ISO C90 headers unconditionally.])dnl
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 AC_CHECK_HEADERS([pwd.h sys/ioctl.h sys/stat.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.

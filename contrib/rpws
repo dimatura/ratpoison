@@ -1,4 +1,4 @@
-#!/usr/bin/env perl
+#!/usr/bin/perl
 
 #
 # Copyright (c) 2009 Hatem Nassrat <hnassrat@gmail.com>
@@ -30,6 +30,13 @@ my $ratpoison = $ENV{ "RATPOISON" } || "ratpoison";
 my $tmp=$ENV{ "TMP" } || "/tmp";
 my $lockfile = $ENV{ "RPWS_LOCKFILE" } || "$tmp/rpws.$<.lock";
 
+# Check if sfdump/sfrestore commands are available
+my $use_multiscreen = 0;
+my $test_sfdump = `$ratpoison -c "help sfdump" 2>&1`;
+if ($test_sfdump !~ /unknown command/i && $test_sfdump !~ /error/i) {
+    $use_multiscreen = 1;
+}
+
 sub help
 {
     system("pod2usage", $0);
@@ -56,7 +63,21 @@ sub ws_init_ws
 
 sub fdump
 {
-    return rp_call( "fdump" );
+    if ($use_multiscreen) {
+        return rp_call( "sfdump" );
+    } else {
+        return rp_call( "fdump" );
+    }
+}
+
+sub frestore
+{
+    my $data = shift;
+    if ($use_multiscreen) {
+        return rp_call( "sfrestore $data" );
+    } else {
+        return rp_call( "frestore $data" );
+    }
 }
 
 sub ws_init
@@ -79,16 +100,16 @@ sub ws_init
 
     # Workspace 1 uses the 'default' group.
     # Start in workspace 1.
-    $fd = fdump();
+    my $fd1 = fdump();
     rp_call( "gselect default" );
-    rp_call( "setenv fspl1 $fd" );
+    rp_call( "setenv fspl1 $fd1" );
     rp_call( "setenv wspl 1" );
 
     # Keep track of workspace count
     rp_call( "setenv wspc $num" );
 
     # restore the frames
-    rp_call( "frestore $fd" );
+    frestore( $fd );
 
     if( -e "$lockfile" )
     {
@@ -154,7 +175,7 @@ sub ws_restore
     ws_save();
     rp_call( "gselect $which_name");
     my $last = rp_call( "getenv fspl$which" );
-    rp_call( "frestore $last" );
+    frestore( $last );
     rp_call( "setenv wspl $which" );
 
     # Step 2x: Display the moved Window
@@ -261,8 +282,8 @@ if( $arg eq "help" ) {
 } elsif( $arg eq "init" ) {
     my $num = shift @ARGV;
     my %opts;
-    ws_init( $num );
     getopts('ka', \%opts);
+    ws_init( $num );
     add_aliases( $num ) if $opts{'a'} || $opts{'k'};
     add_keys ( $num ) if $opts{'k'};
 } elsif( $arg eq "dump" ) {
@@ -303,6 +324,10 @@ rpws - Implements multiple workspaces in ratpoison
  B<rpws> implements multiple workspaces in ratpoison by making calls
  to fdump, freestore.  It was adapted from rpws which comes with
  ratpoison in the contrib directory.
+
+ This version automatically detects and uses sfdump/sfrestore commands
+ if available for proper multi-monitor support. If these commands are
+ not available, it falls back to using fdump/frestore.
 
 =head1 USAGE
 
